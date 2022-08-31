@@ -8,15 +8,17 @@ class CustomText extends StatelessWidget {
   final FontWeight fontWeight;
   final Color? textColor;
   final TextAlign? align;
+  final int? maxLines;
 
-  const CustomText({
-    Key? key,
-    required this.text,
-    required this.fontSize,
-    required this.fontWeight,
-    this.textColor = FrontEndConfigs.kBlackColor,
-    this.align = TextAlign.start,
-  }) : super(key: key);
+  const CustomText(
+      {Key? key,
+      required this.text,
+      required this.fontSize,
+      required this.fontWeight,
+      this.textColor = FrontEndConfigs.kBlackColor,
+      this.align = TextAlign.start,
+      this.maxLines = 2})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,8 @@ class CustomText extends StatelessWidget {
           fontWeight: fontWeight,
           color: textColor),
       textAlign: align,
+      maxLines: maxLines,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

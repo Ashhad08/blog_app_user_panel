@@ -78,7 +78,9 @@ class SignUpViewBody extends StatelessWidget {
                   buttonText: 'Sign up',
                   height: 46,
                   width: 170,
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteNames.bottomBarViewRoute);
+                  }),
               const SizedBox(
                 height: 100,
               ),

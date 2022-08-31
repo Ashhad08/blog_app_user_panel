@@ -74,7 +74,9 @@ class LoginViewBody extends StatelessWidget {
                 buttonText: 'Login',
                 height: 46,
                 width: 170,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteNames.bottomBarViewRoute);
+                },
               ),
               const SizedBox(
                 height: 25,
