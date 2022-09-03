@@ -56,6 +56,7 @@ class BlogCard extends StatelessWidget {
                   text:
                       'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
                   fontSize: 12,
+                  maxLines: 2,
                   fontWeight: FontWeight.w400,
                   textColor: Color(0xffB4B2B2),
                 ),

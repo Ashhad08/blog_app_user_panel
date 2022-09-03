@@ -36,6 +36,7 @@ class ProgramCard extends StatelessWidget {
               CustomText(
                 text: 'YOUTH ADVISORY BOARD'.toUpperCase(),
                 fontSize: 12,
+                maxLines: 2,
                 fontWeight: FontWeight.w600,
                 textColor: const Color(0xff6A6A6A),
               ),

@@ -17,7 +17,7 @@ class CustomText extends StatelessWidget {
       required this.fontWeight,
       this.textColor = FrontEndConfigs.kBlackColor,
       this.align = TextAlign.start,
-      this.maxLines = 2})
+      this.maxLines})
       : super(key: key);
 
   @override

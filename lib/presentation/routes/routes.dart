@@ -5,6 +5,7 @@ import '../views/auth/login_view/login_view.dart';
 import '../views/auth/signup_view/signup_view.dart';
 import '../views/auth/splash_view/splash_view.dart';
 import '../views/bottom_bar_view/bottom_bar_view.dart';
+import '../views/chat_view/chat_view.dart';
 import '../views/conversations_view/conversations_view.dart';
 import '../views/event_details_view/event_details_view.dart';
 import '../views/program_details_view/program_details_view.dart';
@@ -27,6 +28,8 @@ class Routes {
         return MaterialPageRoute(builder: (context) => EventDetailsView());
       case RouteNames.conversationsViewRoute:
         return MaterialPageRoute(builder: (context) => ConversationsView());
+      case RouteNames.chatViewRoute:
+        return MaterialPageRoute(builder: (context) => ChatView());
       default:
         return MaterialPageRoute(
             builder: (context) => const Scaffold(
