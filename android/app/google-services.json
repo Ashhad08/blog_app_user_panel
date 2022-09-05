@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1016043237980",
+    "project_id": "blogapp-614bb",
+    "storage_bucket": "blogapp-614bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016043237980:android:06714279d2e26e1e006c99",
+        "android_client_info": {
+          "package_name": "com.infusibleCoders.blog_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016043237980-dh1ul52kb2juu8eghivdujca3vl4m77t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB5JePlN52q-kBgXpSO8FiAKPsEFpPQxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1016043237980-dh1ul52kb2juu8eghivdujca3vl4m77t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
