@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../configurations/front_end.dart';
 import '../events_view/events_view.dart';
@@ -33,68 +34,74 @@ class _BottomBarViewState extends State<BottomBarView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _screens.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-                size: 25,
-                AssetImage(
-                  'assets/icons/home.png',
-                )),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-                size: 25,
-                AssetImage(
-                  'assets/icons/programs.png',
-                )),
-            label: 'Programs',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-                size: 25,
-                AssetImage(
-                  'assets/icons/events.png',
-                )),
-            label: 'Events',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-                size: 25,
-                AssetImage(
-                  'assets/icons/spotlight.png',
-                )),
-            label: 'Spotlight',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-                size: 25,
-                AssetImage(
-                  'assets/icons/profile.png',
-                )),
-            label: 'Profile',
-          ),
-        ],
-        backgroundColor: FrontEndConfigs.kWhiteColor,
-        elevation: 10,
-        selectedLabelStyle: FrontEndConfigs.kTextStyle.copyWith(
-          fontWeight: FontWeight.w500,
-          fontSize: 10,
+    return WillPopScope(
+      onWillPop: () async {
+        SystemNavigator.pop();
+        return true;
+      },
+      child: Scaffold(
+        body: Center(
+          child: _screens.elementAt(_selectedIndex),
         ),
-        unselectedLabelStyle: FrontEndConfigs.kTextStyle.copyWith(
-          fontWeight: FontWeight.w300,
-          fontSize: 10,
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: ImageIcon(
+                  size: 25,
+                  AssetImage(
+                    'assets/icons/home.png',
+                  )),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(
+                  size: 25,
+                  AssetImage(
+                    'assets/icons/programs.png',
+                  )),
+              label: 'Programs',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(
+                  size: 25,
+                  AssetImage(
+                    'assets/icons/events.png',
+                  )),
+              label: 'Events',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(
+                  size: 25,
+                  AssetImage(
+                    'assets/icons/spotlight.png',
+                  )),
+              label: 'Spotlight',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(
+                  size: 25,
+                  AssetImage(
+                    'assets/icons/profile.png',
+                  )),
+              label: 'Profile',
+            ),
+          ],
+          backgroundColor: FrontEndConfigs.kWhiteColor,
+          elevation: 10,
+          selectedLabelStyle: FrontEndConfigs.kTextStyle.copyWith(
+            fontWeight: FontWeight.w500,
+            fontSize: 10,
+          ),
+          unselectedLabelStyle: FrontEndConfigs.kTextStyle.copyWith(
+            fontWeight: FontWeight.w300,
+            fontSize: 10,
+          ),
+          currentIndex: _selectedIndex,
+          selectedItemColor: FrontEndConfigs.kPrimaryColor,
+          unselectedItemColor: FrontEndConfigs.kSubText2Color,
+          onTap: _onItemTapped,
         ),
-        currentIndex: _selectedIndex,
-        selectedItemColor: FrontEndConfigs.kPrimaryColor,
-        unselectedItemColor: FrontEndConfigs.kSubText2Color,
-        onTap: _onItemTapped,
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../presentation/elements/custom_text.dart';
+
 class FrontEndConfigs {
   static const Color kPrimaryColor = Color(0xff2A38C1);
   static const Color kBorderColor = Color(0xff031199);
@@ -18,4 +20,20 @@ class FrontEndConfigs {
       fontSize: 16,
       fontWeight: FontWeight.w400,
       color: kBlackColor);
+
+  static showSnackBar({
+    required BuildContext context,
+    required String message,
+    required Color color,
+  }) {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: color,
+        duration: const Duration(seconds: 2),
+        content: CustomText(
+          text: message,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          textColor: FrontEndConfigs.kWhiteColor,
+        )));
+  }
 }

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1016043237980",
-    "project_id": "blogapp-614bb",
-    "storage_bucket": "blogapp-614bb.appspot.com"
+    "project_number": "562066097103",
+    "project_id": "blogapp-a7bc8",
+    "storage_bucket": "blogapp-a7bc8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1016043237980:android:06714279d2e26e1e006c99",
+        "mobilesdk_app_id": "1:562066097103:android:76502340bea2931a43c8ba",
         "android_client_info": {
-          "package_name": "com.infusibleCoders.blog_app"
+          "package_name": "com.infusibleCoders.blog_app_user_panel"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1016043237980-dh1ul52kb2juu8eghivdujca3vl4m77t.apps.googleusercontent.com",
+          "client_id": "562066097103-15lmstnv0qq06u6ql5o14m6c19e3hv21.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBB5JePlN52q-kBgXpSO8FiAKPsEFpPQxM"
+          "current_key": "AIzaSyDhhSLXKMblLbmojA81r1Mqaw5rbZNKTFI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1016043237980-dh1ul52kb2juu8eghivdujca3vl4m77t.apps.googleusercontent.com",
+              "client_id": "562066097103-15lmstnv0qq06u6ql5o14m6c19e3hv21.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -7,19 +7,25 @@ class AuthTextField extends StatelessWidget {
       {Key? key,
       required this.hintText,
       required this.prefixIcon,
-      required this.isPasswordField,
-      this.textInputType = TextInputType.text})
+      this.isPasswordField = false,
+      this.textInputType = TextInputType.text,
+      required this.validator,
+      required this.textEditingController})
       : super(key: key);
   final String hintText;
   final IconData prefixIcon;
-  final bool isPasswordField;
+  final bool? isPasswordField;
+  final Function(String) validator;
+  final TextEditingController textEditingController;
   final TextInputType? textInputType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: textInputType,
-      obscureText: isPasswordField,
+      controller: textEditingController,
+      obscureText: isPasswordField ?? false,
+      validator: (val) => validator(val!),
       style: FrontEndConfigs.kTextStyle.copyWith(
           fontSize: 12,
           fontWeight: FontWeight.w500,
@@ -41,6 +47,13 @@ class AuthTextField extends StatelessWidget {
           borderSide: const BorderSide(
             width: 0.2,
             color: FrontEndConfigs.kBorderColor,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(
+            width: 0.2,
+            color: Colors.red,
           ),
         ),
         errorBorder: OutlineInputBorder(
