@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +6,15 @@ import '../../../../../configurations/front_end.dart';
 import '../../../../elements/custom_text.dart';
 
 class BlogCard extends StatelessWidget {
-  const BlogCard({Key? key}) : super(key: key);
+  const BlogCard(
+      {Key? key,
+      required this.imagePath,
+      required this.title,
+      required this.description})
+      : super(key: key);
+  final String imagePath;
+  final String title;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -18,26 +27,53 @@ class BlogCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 10,
-                        spreadRadius: 2,
-                        color: FrontEndConfigs.kBlackColor.withOpacity(0.3)),
-                  ]),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  'assets/images/blog1.png',
+          imagePath.isNotEmpty || imagePath != null
+              ? Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: FrontEndConfigs.kWhiteColor,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 4),
+                            blurRadius: 10,
+                            spreadRadius: 2,
+                            color:
+                                FrontEndConfigs.kBlackColor.withOpacity(0.3)),
+                      ]),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: CachedNetworkImage(
+                      height: 209,
+                      fit: BoxFit.cover,
+                      imageUrl: imagePath,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => Center(
+                              child: CircularProgressIndicator(
+                                  value: downloadProgress.progress)),
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.error,
+                        color: Colors.red,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                )
+              : Container(
+                  width: double.infinity,
+                  color: FrontEndConfigs.kWhiteColor,
                   height: 209,
-                  fit: BoxFit.fitWidth,
+                  child: const Center(
+                    child: CustomText(
+                      text: 'No image',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      textColor: FrontEndConfigs.kSecondaryColor,
+                    ),
+                  ),
                 ),
-              )),
           const SizedBox(
             height: 10,
           ),
@@ -45,22 +81,21 @@ class BlogCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 CustomText(
-                  text: 'Title Here',
+                  text: title,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  textColor: FrontEndConfigs.kReceivingChatBubbleColor,
+                  textColor: FrontEndConfigs.kSecondaryColor,
                 ),
                 CustomText(
-                  text:
-                      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut',
+                  text: description,
                   fontSize: 12,
                   maxLines: 2,
                   fontWeight: FontWeight.w400,
-                  textColor: Color(0xffB4B2B2),
+                  textColor: const Color(0xffB4B2B2),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
               ],
@@ -82,7 +117,7 @@ class BlogCard extends StatelessWidget {
                 onPressed: () {},
                 icon: const Icon(
                   CupertinoIcons.chat_bubble_fill,
-                  color: FrontEndConfigs.kReceivingChatBubbleColor,
+                  color: FrontEndConfigs.kSecondaryColor,
                 ),
               ),
               const CustomText(
@@ -94,7 +129,7 @@ class BlogCard extends StatelessWidget {
                   onPressed: () {},
                   icon: const Icon(
                     Icons.share,
-                    color: FrontEndConfigs.kReceivingChatBubbleColor,
+                    color: FrontEndConfigs.kSecondaryColor,
                   )),
             ],
           )

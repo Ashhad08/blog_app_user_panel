@@ -47,7 +47,7 @@ class MessageBubble extends StatelessWidget {
                   borderRadius: BorderRadius.circular(17),
                   color: isSentByMe
                       ? FrontEndConfigs.kSendingChatBubbleColor
-                      : FrontEndConfigs.kReceivingChatBubbleColor),
+                      : FrontEndConfigs.kSecondaryColor),
               child: CustomText(
                 text: message,
                 fontSize: 12,
