@@ -1,3 +1,5 @@
+import 'package:blog_app_user_panel/backend/models/event_model.dart';
+import 'package:blog_app_user_panel/backend/models/program_model.dart';
 import 'package:flutter/material.dart';
 
 import '../elements/custom_text.dart';
@@ -23,9 +25,14 @@ class Routes {
       case RouteNames.bottomBarViewRoute:
         return MaterialPageRoute(builder: (context) => BottomBarView());
       case RouteNames.programDetailsViewRoute:
-        return MaterialPageRoute(builder: (context) => ProgramDetailsView());
+        return MaterialPageRoute(
+            builder: (context) => ProgramDetailsView(
+                  settings.arguments as ProgramModel,
+                ));
       case RouteNames.eventDetailsViewRoute:
-        return MaterialPageRoute(builder: (context) => EventDetailsView());
+        return MaterialPageRoute(
+            builder: (context) =>
+                EventDetailsView(settings.arguments as EventModel));
       case RouteNames.conversationsViewRoute:
         return MaterialPageRoute(builder: (context) => ConversationsView());
       case RouteNames.chatViewRoute:

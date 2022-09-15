@@ -6,6 +6,10 @@ class BackEndConfigs {
       FirebaseFirestore.instance.collection('usersCollection');
   static CollectionReference<Map<String, dynamic>> kBlogCollection =
       FirebaseFirestore.instance.collection('blogsCollection');
+  static CollectionReference<Map<String, dynamic>> kProgramsCollection =
+      FirebaseFirestore.instance.collection('programsCollection');
+  static CollectionReference<Map<String, dynamic>> kEventsCollection =
+      FirebaseFirestore.instance.collection('EventsCollection');
   static final firebase_storage.FirebaseStorage kStorage =
       firebase_storage.FirebaseStorage.instance;
 }

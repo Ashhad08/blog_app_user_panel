@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../configurations/front_end.dart';
@@ -5,28 +6,35 @@ import '../../../../../configurations/front_end.dart';
 class EventImagesCard extends StatelessWidget {
   const EventImagesCard({
     Key? key,
+    required this.imagePath,
   }) : super(key: key);
+  final String imagePath;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 146,
+    return Card(
+      elevation: 3,
+      shadowColor: FrontEndConfigs.kBlackColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
       margin: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          image: const DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage(
-              'assets/images/event_gallery.png',
-            ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: CachedNetworkImage(
+          fit: BoxFit.cover,
+          imageUrl: imagePath,
+          width: 146,
+          progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+              child:
+                  CircularProgressIndicator(value: downloadProgress.progress)),
+          errorWidget: (context, url, error) => const Icon(
+            Icons.error,
+            color: Colors.red,
+            size: 20,
           ),
-          boxShadow: [
-            BoxShadow(
-                color: FrontEndConfigs.kBlackColor.withOpacity(0.16),
-                offset: const Offset(0, 1),
-                spreadRadius: 0.5,
-                blurRadius: 5)
-          ]),
+        ),
+      ),
     );
   }
 }

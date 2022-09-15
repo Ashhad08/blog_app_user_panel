@@ -1,14 +1,19 @@
+import 'package:blog_app_user_panel/backend/models/program_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../configurations/front_end.dart';
 import '../../elements/custom_text.dart';
 import 'layout/body.dart';
 
 class ProgramDetailsView extends StatelessWidget {
-  const ProgramDetailsView({Key? key}) : super(key: key);
+  final ProgramModel _programDetails;
+
+  const ProgramDetailsView(this._programDetails, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: FrontEndConfigs.kScaffoldDefaultColor,
       appBar: AppBar(
         title: const CustomText(
             text: 'Programs Details',
@@ -28,7 +33,9 @@ class ProgramDetailsView extends StatelessWidget {
           )
         ],
       ),
-      body: const ProgramDetailsViewBody(),
+      body: ProgramDetailsViewBody(
+        _programDetails,
+      ),
     );
   }
 }

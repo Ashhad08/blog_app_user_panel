@@ -14,6 +14,7 @@ class LoginView extends StatelessWidget {
         return true;
       },
       child: const Scaffold(
+        backgroundColor: Color(0xffFCFCFC),
         body: LoginViewBody(),
       ),
     );

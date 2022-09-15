@@ -10,11 +10,15 @@ class BlogCard extends StatelessWidget {
       {Key? key,
       required this.imagePath,
       required this.title,
-      required this.description})
+      required this.description,
+      required this.totalLikes,
+      required this.likeButton})
       : super(key: key);
   final String imagePath;
   final String title;
   final String description;
+  final Widget totalLikes;
+  final IconButton likeButton;
 
   @override
   Widget build(BuildContext context) {
@@ -103,15 +107,8 @@ class BlogCard extends StatelessWidget {
           ),
           Row(
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite,
-                  color: FrontEndConfigs.kPrimaryColor,
-                ),
-              ),
-              const CustomText(
-                  text: '24 likes', fontSize: 12, fontWeight: FontWeight.w400),
+              likeButton,
+              totalLikes,
               const Spacer(),
               IconButton(
                 onPressed: () {},

@@ -1,14 +1,18 @@
+import 'package:blog_app_user_panel/backend/models/event_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../configurations/front_end.dart';
 import '../../elements/custom_text.dart';
 import 'layout/body.dart';
 
 class EventDetailsView extends StatelessWidget {
-  const EventDetailsView({Key? key}) : super(key: key);
+  const EventDetailsView(this._eventModel, {Key? key}) : super(key: key);
+  final EventModel _eventModel;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: FrontEndConfigs.kScaffoldDefaultColor,
       appBar: AppBar(
         title: const CustomText(
             text: 'Event Details', fontSize: 14, fontWeight: FontWeight.bold),
@@ -26,7 +30,7 @@ class EventDetailsView extends StatelessWidget {
           )
         ],
       ),
-      body: const EventDetailsViewBody(),
+      body: EventDetailsViewBody(_eventModel),
     );
   }
 }

@@ -1,15 +1,23 @@
+import 'package:blog_app_user_panel/configurations/back_end.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../backend/models/blog.dart';
+import '../../../../backend/models/blog_model.dart';
 import '../../../../backend/services/system.dart';
 import '../../../../configurations/front_end.dart';
 import '../../../elements/custom_text.dart';
 import 'widgets/blog_card.dart';
 
-class HomeViewBody extends StatelessWidget {
+class HomeViewBody extends StatefulWidget {
   const HomeViewBody({Key? key}) : super(key: key);
 
+  @override
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
+
+class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,11 +99,81 @@ class HomeViewBody extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       itemCount: _myBlogsList.length,
                       itemBuilder: (context, index) {
+                        List likeIdsList = [];
+                        // BackEndConfigs.kBlogCollection
+                        //     .doc(_myBlogsList[index].blogId)
+                        //     .snapshots()
+                        //     .listen((DocumentSnapshot snapshot) {
+                        //   setState(() {
+                        //     likeIdsList.clear();
+                        //     likeIdsList.add(snapshot.get("isLiked"));
+                        //   });
+                        // });
                         return BlogCard(
-                          imagePath: _myBlogsList[index].blogImage.toString(),
-                          title: _myBlogsList[index].blogTitle.toString(),
+                          imagePath: _myBlogsList[index].blogImage ??
+                              'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg',
+                          title: _myBlogsList[index].blogTitle ?? '',
                           description:
-                              _myBlogsList[index].blogDescription.toString(),
+                              _myBlogsList[index].blogDescription ?? '',
+                          likeButton: IconButton(
+                            onPressed: () async {
+                              if (!(likeIdsList.toString().contains(
+                                  FirebaseAuth.instance.currentUser!.uid))) {
+                                await BackEndConfigs.kBlogCollection
+                                    .doc(_myBlogsList[index].blogId)
+                                    .set({
+                                  "isLiked": FieldValue.arrayUnion(
+                                      [FirebaseAuth.instance.currentUser!.uid]),
+                                }, SetOptions(merge: true)).whenComplete(() {
+                                  BackEndConfigs.kBlogCollection
+                                      .doc(_myBlogsList[index].blogId)
+                                      .snapshots()
+                                      .listen((DocumentSnapshot snapshot) {
+                                    setState(() {
+                                      likeIdsList.clear();
+                                      likeIdsList.add(snapshot.get("isLiked"));
+                                    });
+                                    print(
+                                        likeIdsList.toString() + 'array union');
+                                  });
+                                });
+                              } else {
+                                await BackEndConfigs.kBlogCollection
+                                    .doc(_myBlogsList[index].blogId)
+                                    .set({
+                                  "isLiked": FieldValue.arrayRemove(
+                                      [FirebaseAuth.instance.currentUser!.uid]),
+                                }, SetOptions(merge: true)).whenComplete(() {
+                                  BackEndConfigs.kBlogCollection
+                                      .doc(_myBlogsList[index].blogId)
+                                      .snapshots()
+                                      .listen((DocumentSnapshot snapshot) {
+                                    setState(() {
+                                      likeIdsList.clear();
+                                      likeIdsList.add(snapshot.get("isLiked"));
+                                    });
+                                    print(likeIdsList.toString() +
+                                        'array remove');
+                                  });
+                                });
+                              }
+                            },
+                            icon: !(likeIdsList.toString().contains(
+                                    FirebaseAuth.instance.currentUser!.uid))
+                                ? const Icon(
+                                    Icons.favorite_border,
+                                    color: FrontEndConfigs.kSecondaryColor,
+                                  )
+                                : const Icon(
+                                    Icons.favorite,
+                                    color: FrontEndConfigs.kPrimaryColor,
+                                  ),
+                          ),
+                          totalLikes: const CustomText(
+                              text: '${0} likes',
+                              // text: '${likesList.length.toString()} likes',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400),
                         );
                       });
                 }
@@ -106,4 +184,34 @@ class HomeViewBody extends StatelessWidget {
       ),
     );
   }
+
+// _likeBlog() {
+//   BackEndConfigs.kBlogCollection.doc(blogId).set({
+//     "isLiked":
+//         FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid]),
+//   }, SetOptions(merge: true)).whenComplete(() {
+//     _getLikesIds();
+//   });
+// }
+//
+// _disLikeBlog() {
+//   BackEndConfigs.kBlogCollection.doc(blogId).set({
+//     "isLiked":
+//         FieldValue.arrayRemove([FirebaseAuth.instance.currentUser!.uid]),
+//   }, SetOptions(merge: true)).whenComplete(() {
+//     _getLikesIds();
+//   });
+// }
+//
+// _getLikesIds() async {
+//   BackEndConfigs.kBlogCollection
+//       .doc(blogId)
+//       .snapshots()
+//       .listen((DocumentSnapshot snapshot) {
+//     setState(() {
+//       likeIdsList.clear();
+//       likeIdsList.add(snapshot.get("isLiked"));
+//     });
+//   });
+// }
 }

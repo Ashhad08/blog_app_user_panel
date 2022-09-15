@@ -1,94 +1,117 @@
+import 'package:blog_app_user_panel/backend/models/event_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import '../../../../configurations/front_end.dart';
 import '../../../elements/custom_text.dart';
 import 'widgets/event_images_card.dart';
 
 class EventDetailsViewBody extends StatelessWidget {
-  const EventDetailsViewBody({Key? key}) : super(key: key);
+  const EventDetailsViewBody(this._eventModel, {Key? key}) : super(key: key);
+
+  final EventModel _eventModel;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: FrontEndConfigs.kScaffoldDefaultColor,
-      body: Column(
-        children: [
-          Expanded(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
             flex: 3,
-            child: Image.asset(
-              'assets/images/program1.png',
+            child: CachedNetworkImage(
               fit: BoxFit.cover,
-            ),
-          ),
-          Expanded(
-              flex: 7,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        top: 16,
-                        right: 25,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          CustomText(
-                              text: 'Thursday, August 26, 2020 11:30 pm',
-                              fontSize: 14,
-                              textColor: Color(0xff9D9D9D),
-                              fontWeight: FontWeight.w600),
-                          SizedBox(
-                            height: 13,
-                          ),
-                          CustomText(
-                              text: 'Event Title',
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          CustomText(
-                              text:
-                                  'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem.',
-                              fontSize: 12,
-                              maxLines: 7,
-                              textColor: Color(0xff6A6A6A),
-                              fontWeight: FontWeight.w400),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          CustomText(
-                              text: 'Event Gallery',
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400),
-                          SizedBox(
-                            height: 14,
-                          ),
-                        ],
-                      ),
+              width: double.infinity,
+              imageUrl: _eventModel.eventGalleryImages[0],
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress)),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.error,
+                color: Colors.red,
+                size: 20,
+              ),
+            )),
+        Expanded(
+            flex: 7,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      top: 16,
+                      right: 25,
                     ),
-                    SizedBox(
-                      height: 144,
-                      child: ListView.builder(
-                          itemCount: 4,
-                          padding: const EdgeInsets.only(left: 16),
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return const EventImagesCard();
-                          }),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(
+                            text: DateFormat("EEEE, MMMM d, yyyy")
+                                .format(formatDate(
+                                  _eventModel.eventDate ?? Timestamp.now(),
+                                ))
+                                .toUpperCase(),
+                            fontSize: 14,
+                            textColor: const Color(0xff9D9D9D),
+                            fontWeight: FontWeight.w600),
+                        const SizedBox(
+                          height: 13,
+                        ),
+                        CustomText(
+                            text: _eventModel.eventTitle ?? '',
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        CustomText(
+                            text: _eventModel.eventDescription ?? '',
+                            fontSize: 12,
+                            maxLines: 7,
+                            textColor: const Color(0xff6A6A6A),
+                            fontWeight: FontWeight.w400),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const CustomText(
+                            text: 'Event Gallery',
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                        const SizedBox(
+                          height: 14,
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                ),
-              ))
-        ],
-      ),
+                  ),
+                  SizedBox(
+                    height: 144,
+                    child: ListView.builder(
+                        itemCount: _eventModel.eventGalleryImages.length - 1,
+                        padding: const EdgeInsets.only(left: 16),
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return EventImagesCard(
+                            imagePath:
+                                _eventModel.eventGalleryImages[index + 1],
+                          );
+                        }),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
+            ))
+      ],
     );
+  }
+
+  DateTime formatDate(Timestamp date) {
+    return date.toDate();
   }
 }

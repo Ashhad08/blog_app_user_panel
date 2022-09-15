@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../configurations/front_end.dart';
 import 'layout/body.dart';
 
 class SignUpView extends StatelessWidget {
@@ -7,7 +8,8 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
+      backgroundColor: FrontEndConfigs.kWhiteColor,
       body: SignUpViewBody(),
     );
   }

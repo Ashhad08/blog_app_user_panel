@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../configurations/front_end.dart';
 import '../../elements/app_drawer.dart';
 import '../../elements/custom_text.dart';
 import 'layout/body.dart';
@@ -10,6 +11,7 @@ class EventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: FrontEndConfigs.kScaffoldColor,
       appBar: AppBar(
         title: const CustomText(
             text: 'Events', fontSize: 14, fontWeight: FontWeight.bold),

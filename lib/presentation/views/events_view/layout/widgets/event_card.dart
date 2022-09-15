@@ -6,7 +6,14 @@ import '../../../../elements/custom_text.dart';
 class EventCard extends StatelessWidget {
   const EventCard({
     Key? key,
+    required this.title,
+    required this.description,
+    required this.date,
   }) : super(key: key);
+
+  final String title;
+  final String description;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -27,32 +34,27 @@ class EventCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CustomText(
-              text: ' Title', fontSize: 18, fontWeight: FontWeight.w400),
+          CustomText(text: title, fontSize: 18, fontWeight: FontWeight.w400),
           const SizedBox(
             height: 8,
           ),
-          const CustomText(
-              text:
-                  'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy',
+          CustomText(
+              text: description,
               fontSize: 8,
               maxLines: 3,
               fontWeight: FontWeight.w400),
           const Spacer(),
           Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.calendar_month,
                 size: 15,
                 color: FrontEndConfigs.kSubText2Color,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 7,
               ),
-              CustomText(
-                  text: 'Dec 10, 2020',
-                  fontSize: 8,
-                  fontWeight: FontWeight.w400),
+              CustomText(text: date, fontSize: 8, fontWeight: FontWeight.w400),
             ],
           ),
           const SizedBox(
