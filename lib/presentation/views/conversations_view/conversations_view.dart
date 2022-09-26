@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../configurations/front_end.dart';
 import '../../elements/custom_text.dart';
+import '../../routes/route_names.dart';
 import 'layout/body.dart';
 
 class ConversationsView extends StatelessWidget {
@@ -9,6 +11,7 @@ class ConversationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: FrontEndConfigs.kWhiteColor,
       appBar: AppBar(
         elevation: 0,
         title: const CustomText(
@@ -17,7 +20,13 @@ class ConversationsView extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      body: const ConversationsViewBody(),
+      body: ConversationsViewBody(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, RouteNames.createNewChatViewRoute);
+        },
+        child: const Icon(Icons.message),
+      ),
     );
   }
 }

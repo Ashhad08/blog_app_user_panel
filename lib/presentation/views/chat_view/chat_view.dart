@@ -1,35 +1,45 @@
 import 'package:flutter/material.dart';
 
+import '../../../configurations/front_end.dart';
 import '../../elements/custom_text.dart';
 import 'layout/body.dart';
 import 'layout/widgets/user_image_avatar.dart';
 
 class ChatView extends StatelessWidget {
-  const ChatView({Key? key}) : super(key: key);
+  const ChatView(this._userData, {Key? key}) : super(key: key);
+  final dynamic _userData;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: FrontEndConfigs.kScaffoldColor,
       appBar: AppBar(
         elevation: 0,
         title: Row(
-          children: const [
+          children: [
             UserImageAvatar(
               height: 35,
-              imagePath: 'assets/images/chat_user.png',
+              imagePath: _userData["receiverProfileImage"] ??
+                  'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg',
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
             CustomText(
-                text: 'UserName', fontSize: 14, fontWeight: FontWeight.bold),
-            Spacer(
+                text: _userData["receiverName"] ?? 'username',
+                fontSize: 14,
+                fontWeight: FontWeight.bold),
+            const Spacer(
               flex: 3,
             ),
           ],
         ),
       ),
-      body: const ChatViewBody(),
+      body: ChatViewBody(
+        receiverData: _userData,
+        receiverImage: _userData["receiverProfileImage"] ??
+            'https://i.pinimg.com/originals/f9/11/d3/f911d38579709636499618b6b3d9b6f6.jpg',
+      ),
     );
   }
 }

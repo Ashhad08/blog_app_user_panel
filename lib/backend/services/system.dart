@@ -52,4 +52,29 @@ class SystemServices {
             .map((singleBlog) => EventModel.fromJson(singleBlog.data()))
             .toList());
   }
+
+  Stream<UserModel> fetchUserInfo() {
+    return BackEndConfigs.kUsersCollection
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .map((userInfo) => UserModel.fromJson(userInfo.data()!));
+  }
+
+  Stream<List<UserModel>> fetchAllUsers() {
+    return BackEndConfigs.kUsersCollection
+        .where("uid", isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .map((usersList) => usersList.docs
+            .map((singleUser) => UserModel.fromJson(singleUser.data()))
+            .toList());
+  }
+
+  Future updateUserInfo(UserModel userModel) async {
+    return await BackEndConfigs.kUsersCollection.doc(userModel.uid).update({
+      "name": userModel.name,
+      "profileImage": userModel.profileImage,
+      "email": userModel.email,
+      "phoneNumber": userModel.phoneNumber,
+    });
+  }
 }

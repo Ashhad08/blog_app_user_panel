@@ -1,6 +1,6 @@
-import 'package:blog_app_user_panel/backend/models/event_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../backend/models/event_model.dart';
 import '../../../configurations/front_end.dart';
 import '../../elements/custom_text.dart';
 import 'layout/body.dart';

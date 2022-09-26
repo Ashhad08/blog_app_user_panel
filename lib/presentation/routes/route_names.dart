@@ -7,4 +7,5 @@ class RouteNames {
   static const String eventDetailsViewRoute = "event_details_view";
   static const String conversationsViewRoute = "conversations_view";
   static const String chatViewRoute = "chat_view";
+  static const String createNewChatViewRoute = "create_new_chat_view";
 }

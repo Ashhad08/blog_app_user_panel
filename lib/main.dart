@@ -23,6 +23,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: FrontEndConfigs.kPrimaryColor,
+            foregroundColor: FrontEndConfigs.kWhiteColor),
         appBarTheme: const AppBarTheme(
           elevation: 1,
           iconTheme: IconThemeData(color: FrontEndConfigs.kBlackColor),
